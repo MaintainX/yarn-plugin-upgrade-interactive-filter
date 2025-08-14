@@ -33,24 +33,23 @@ yarn plugin import /path/to/yarn-plugin-upgrade-interactive-filter/bundles/@yarn
 
 ## Usage
 
-The plugin adds a `--workspace` option to the `yarn upgrade-interactive` command:
+The plugin adds a command: `yarn upgrade-interactive-filter <WORKSPACE_NAMES>` command:
 
 ```bash
 # Upgrade dependencies only for specific workspaces
-yarn upgrade-interactive --workspace workspace1 --workspace workspace2
+yarn upgrade-interactive-filter ts-scripts
 
 # You can also use multiple workspace names
-yarn upgrade-interactive --workspace frontend --workspace backend --workspace shared
+yarn upgrade-interactive-filter ts-scripts gql-gen
 ```
 
 ## How it works
 
-The plugin replaces the built-in `upgrade-interactive` command and:
+The plugin adds the command `upgrade-interactive-filter` and:
 
-1. Adds a `--workspace` option to filter by workspace names
-2. When workspace filters are provided, it identifies matching workspaces in the project
-3. For each filtered workspace, it runs `yarn upgrade-interactive` in that workspace's directory
-4. When no workspace filter is provided, it falls back to running the standard `upgrade-interactive` command
+1. For each workspace provided, it identifies matching workspaces in the project
+2. For each filtered workspace, it runs `yarn upgrade-interactive` in that workspace's directory
+3. When no workspace filter is provided, it fails
 
 ## Development
 
