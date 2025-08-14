@@ -53,34 +53,17 @@ export class UpgradeInteractiveCommand extends OriginalUpgradeInteractiveCommand
     const filteredWorkspaces: Workspace[] = [];
 
     for (const workspace of originalProject.workspaces) {
-      const workspaceName =
-        workspace.manifest.name?.name || workspace.relativeCwd;
+      const workspaceName = workspace.manifest.name?.name;
 
-      // Include if exact match
-      if (selectedWorkspaceNames.has(workspaceName)) {
+      // Only include workspaces with package names that match exactly
+      if (workspaceName && selectedWorkspaceNames.has(workspaceName)) {
         filteredWorkspaces.push(workspace);
-        continue;
-      }
-
-      // Include if nested inside any selected workspace
-      for (const selectedName of selectedWorkspaceNames) {
-        const selectedWorkspace = Array.from(originalProject.workspaces).find(
-          (ws) => (ws.manifest.name?.name || ws.relativeCwd) === selectedName
-        );
-
-        if (
-          selectedWorkspace &&
-          workspace.relativeCwd.startsWith(selectedWorkspace.relativeCwd + "/")
-        ) {
-          filteredWorkspaces.push(workspace);
-          break;
-        }
       }
     }
 
     console.log(
       "filtered workspaces:",
-      filteredWorkspaces.map((w) => w.manifest.name?.name || w.relativeCwd)
+      filteredWorkspaces.map((w) => w.manifest.name?.name)
     );
 
     // Create a proxy that inherits from original project but overrides workspaces
