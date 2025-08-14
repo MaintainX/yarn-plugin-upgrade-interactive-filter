@@ -1,0 +1,21 @@
+{
+  "name": "yarn-plugin-upgrade-interactive-filter",
+  "private": true,
+  "version": "1.0.0",
+  "main": "./sources/index.ts",
+  "packageManager": "yarn@4.9.2",
+  "scripts": {
+    "build": "builder build plugin"
+  },
+  "dependencies": {
+    "@yarnpkg/core": "^4.4.2",
+    "@yarnpkg/fslib": "^3.1.2",
+    "@yarnpkg/plugin-interactive-tools": "^4.0.3",
+    "clipanion": "^4.0.0-rc.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@yarnpkg/builder": "^4.2.2",
+    "typescript": "^5.9.2"
+  }
+}

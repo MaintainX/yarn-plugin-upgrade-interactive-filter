@@ -1,0 +1,9 @@
+/* eslint-disable */
+//prettier-ignore
+module.exports = {
+name: "@yarnpkg/plugin-upgrade-interactive-filter",
+factory: function (require) {
+"use strict";var plugin=(()=>{var p=Object.defineProperty;var w=Object.getOwnPropertyDescriptor;var P=Object.getOwnPropertyNames;var g=Object.prototype.hasOwnProperty;var m=(r=>typeof require<"u"?require:typeof Proxy<"u"?new Proxy(r,{get:(e,a)=>(typeof require<"u"?require:e)[a]}):r)(function(r){if(typeof require<"u")return require.apply(this,arguments);throw Error('Dynamic require of "'+r+'" is not supported')});var h=(r,e)=>{for(var a in e)p(r,a,{get:e[a],enumerable:!0})},y=(r,e,a,s)=>{if(e&&typeof e=="object"||typeof e=="function")for(let t of P(e))!g.call(r,t)&&t!==a&&p(r,t,{get:()=>e[t],enumerable:!(s=w(e,t))||s.enumerable});return r};var C=r=>y(p({},"__esModule",{value:!0}),r);var x={};h(x,{default:()=>v});var l=m("@yarnpkg/plugin-interactive-tools"),u=m("clipanion"),i=m("@yarnpkg/core"),c=class extends l.UpgradeInteractiveCommand{workspaces=u.Option.Array("--workspace",{description:"Filter by workspace names"});async execute(){if(!this.workspaces||this.workspaces.length===0)return super.execute();let e=i.Project.find;i.Project.find=async(a,s)=>{let{project:t,...o}=await e.call(i.Project,a,s),n=this.createFilteredProject(t,this.workspaces);return{...o,project:n}};try{return await super.execute()}finally{i.Project.find=e}}createFilteredProject(e,a){let s=new Set(a),t=[];for(let o of e.workspaces){let n=o.manifest.name?.name||o.relativeCwd;if(s.has(n)){t.push(o);continue}for(let k of s){let f=Array.from(e.workspaces).find(d=>(d.manifest.name?.name||d.relativeCwd)===k);if(f&&o.relativeCwd.startsWith(f.relativeCwd+"/")){t.push(o);break}}}return console.log("filtered workspaces:",t.map(o=>o.manifest.name?.name||o.relativeCwd)),new Proxy(e,{get(o,n){return n==="workspaces"?t:o[n]}})}};var j={commands:[c]},v=j;return C(x);})();
+return plugin;
+}
+};
