@@ -4,9 +4,11 @@ import { Configuration, Project, Workspace } from "@yarnpkg/core";
 import { PortablePath } from "@yarnpkg/fslib";
 
 export class UpgradeInteractiveCommand extends OriginalUpgradeInteractiveCommand {
-  workspaces = Option.Array("--workspace", {
-    description: "Filter by workspace names",
+  workspaces = Option.Rest({
+    required: 1,
   });
+
+  static paths = [["upgrade-interactive-filter"]];
 
   async execute(): Promise<0 | 1> {
     if (!this.workspaces || this.workspaces.length === 0) {
