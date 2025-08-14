@@ -1,6 +1,6 @@
 import { UpgradeInteractiveCommand as OriginalUpgradeInteractiveCommand } from "@yarnpkg/plugin-interactive-tools";
 import { Option } from "clipanion";
-import { Configuration, Project, Workspace } from "@yarnpkg/core";
+import { Configuration, Project, Workspace, structUtils } from "@yarnpkg/core";
 import { PortablePath } from "@yarnpkg/fslib";
 
 export class UpgradeInteractiveCommand extends OriginalUpgradeInteractiveCommand {
@@ -49,21 +49,28 @@ export class UpgradeInteractiveCommand extends OriginalUpgradeInteractiveCommand
     originalProject: Project,
     workspaceNames: string[] | undefined
   ): Project {
-    const selectedWorkspaceNames = new Set(workspaceNames);
+    if (!workspaceNames) return originalProject;
+
+    // Convert user-provided workspace names to identHashes
+    const selectedIdentHashes = new Set(
+      workspaceNames.map((name) => structUtils.parseIdent(name).identHash)
+    );
     const filteredWorkspaces: Workspace[] = [];
 
     for (const workspace of originalProject.workspaces) {
-      const workspaceName = workspace.manifest.name?.name;
+      const workspaceIdentHash = workspace.manifest.name?.identHash;
 
-      // Only include workspaces with package names that match exactly
-      if (workspaceName && selectedWorkspaceNames.has(workspaceName)) {
+      // Only include workspaces with identHash that match exactly
+      if (workspaceIdentHash && selectedIdentHashes.has(workspaceIdentHash)) {
         filteredWorkspaces.push(workspace);
       }
     }
 
     console.log(
       "filtered workspaces:",
-      filteredWorkspaces.map((w) => w.manifest.name?.name)
+      filteredWorkspaces.map((w) =>
+        structUtils.stringifyIdent(w.manifest.name!)
+      )
     );
 
     // Create a proxy that inherits from original project but overrides workspaces
