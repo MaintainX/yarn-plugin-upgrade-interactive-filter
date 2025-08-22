@@ -2,20 +2,29 @@
   "name": "yarn-plugin-upgrade-interactive-filter",
   "private": true,
   "version": "1.0.0",
-  "main": "./sources/index.ts",
   "packageManager": "yarn@4.9.2",
-  "scripts": {
-    "build": "builder build plugin"
-  },
+  "main": "./sources/index.ts",
   "dependencies": {
-    "@yarnpkg/core": "^4.4.2",
-    "@yarnpkg/fslib": "^3.1.2",
-    "@yarnpkg/plugin-interactive-tools": "^4.0.3",
-    "clipanion": "^4.0.0-rc.2"
+    "@yarnpkg/libui": "^3.0.2",
+    "algoliasearch": "^4.2.0",
+    "clipanion": "^4.0.0-rc.2",
+    "diff": "^5.1.0",
+    "ink": "^3.2.0",
+    "ink-text-input": "^4.0.3",
+    "react": "^17.0.2",
+    "semver": "^7.1.2",
+    "tslib": "^2.4.0"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
+    "@types/diff": "^5.0.0",
+    "@types/react": "^16.8.0",
+    "@types/semver": "^7.1.0",
     "@yarnpkg/builder": "^4.2.2",
-    "typescript": "^5.9.2"
+    "@yarnpkg/cli": "^4.9.3",
+    "@yarnpkg/core": "^4.4.3",
+    "@yarnpkg/plugin-essentials": "^4.4.1"
+  },
+  "scripts": {
+    "build": "builder build plugin"
   }
 }

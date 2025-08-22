@@ -1,21 +1,31 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    // Typechecking
+    "target": "ES2021",
     "lib": ["ES2022"],
-    "declaration": true,
-    "outDir": "lib",
-    "rootDir": "sources",
     "strict": true,
-    "esModuleInterop": true,
+    "allowJs": true,
     "skipLibCheck": true,
+    "useUnknownInCatchVariables": false,
+    "noImplicitReturns": true,
+
+    // Compat
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+
+    // Resolution
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+
+    // Output
+    "module": "commonjs",
+    "declaration": true,
+    "importHelpers": true,
+    "alwaysStrict": false,
+    "jsx": "react",
+    "noEmit": true
   },
-  "include": ["sources/**/*"],
-  "exclude": ["node_modules", "lib"]
+  "exclude": ["*/lib", "*/bin", "*/bundles"]
 }
