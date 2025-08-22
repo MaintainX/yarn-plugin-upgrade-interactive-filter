@@ -1,5 +1,6 @@
 import { Plugin } from "@yarnpkg/core";
-import { UpgradeInteractiveCommand } from "./commands/UpgradeInteractiveCommand";
+
+import UpgradeInteractiveCommand from "./commands/upgrade-interactive";
 
 const plugin: Plugin = {
   commands: [UpgradeInteractiveCommand],
